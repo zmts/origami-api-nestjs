@@ -18,8 +18,6 @@ export type AuthConfig = {
     cookiePath?: string;
   };
   refreshToken: {
-    secret: string;
-    expiresIn: string;
     cookieName?: string;
     cookiePath?: string;
   };

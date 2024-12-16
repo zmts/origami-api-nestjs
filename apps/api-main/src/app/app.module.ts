@@ -1,8 +1,9 @@
 import { Module } from '@nestjs/common';
-import { ConfigModule } from '@nestjs/config';
+import { ConfigModule, ConfigService } from '@nestjs/config';
 
-import { appConfig, databaseConfig } from '@libs/config';
+import { AllConfig, appConfig, authConfig, databaseConfig } from '@libs/config';
 import { DatabaseModule } from '@libs/database';
+import { GoogleAuthModule } from '@libs/units/auth-google';
 
 import { AppController } from './app.controller';
 import { AuthModule } from './auth';
@@ -12,7 +13,17 @@ import { UsersModule } from './users';
   imports: [
     ConfigModule.forRoot({
       isGlobal: true,
-      load: [appConfig, databaseConfig],
+      load: [appConfig, authConfig, databaseConfig],
+    }),
+    GoogleAuthModule.forRootAsync({
+      imports: [ConfigModule],
+      inject: [ConfigService],
+      useFactory: (config: ConfigService<AllConfig>) => ({
+        clientID: config.getOrThrow('auth.google.clientId', { infer: true }),
+        clientSecret: config.getOrThrow('auth.google.secret', { infer: true }),
+        callbackURL: config.getOrThrow('auth.google.callbackUrl', { infer: true }),
+        frontRedirectURL: config.getOrThrow('auth.google.frontRedirectURL', { infer: true }),
+      }),
     }),
     DatabaseModule,
     AuthModule,

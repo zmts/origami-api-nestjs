@@ -1,10 +1,10 @@
 import { Module } from '@nestjs/common';
 
-import { LoginEmailAction } from './actions';
+import { LoginEmailAction, LoginGoogleAction } from './actions';
 import { AuthController } from './auth.controller';
 
 @Module({
-  providers: [LoginEmailAction],
   controllers: [AuthController],
+  providers: [LoginEmailAction, LoginGoogleAction],
 })
 export class AuthModule {}
