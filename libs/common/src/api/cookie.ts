@@ -1,13 +1,13 @@
 import { CookieOptions } from 'express';
 
 export class Cookie implements Cookie {
-  constructor(props: object) {
+  constructor(props: Cookie) {
     Object.assign(this, props);
   }
 }
 
 export interface Cookie {
   name: string;
-  value: any;
+  value: string | number;
   options?: CookieOptions;
 }

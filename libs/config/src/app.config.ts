@@ -4,8 +4,9 @@ import { AppConfig, AppEnv } from './config.type';
 
 export default registerAs<AppConfig>('app', () => {
   return {
+    appName: process.env.APP_NAME || 'api',
     env: (process.env.NODE_ENV as AppEnv) || AppEnv.Dev,
     port: parseInt(process.env.APP_PORT as string, 10) || 3000,
-    log: { level: (process.env.LOG_LEVEL as any) || 'info' },
+    frontendUrl: process.env.FRONTEND_URL,
   };
 });

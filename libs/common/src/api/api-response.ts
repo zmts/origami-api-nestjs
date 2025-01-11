@@ -7,35 +7,28 @@ export interface IApiPaginationResponse {
   total: number;
 }
 
-export interface IApiSuccessResponse<T> {
-  data: T;
-  status: HttpStatus;
-  pagination?: IApiPaginationResponse;
-  meta?: any;
-}
-
-interface IResponseOptions {
+interface IApiResponseOptions {
   status?: HttpStatus;
   headers?: Record<string, number | string | ReadonlyArray<string>>;
-  cookies?: Record<string, Cookie>;
+  cookies?: Cookie[];
   pagination?: IApiPaginationResponse;
   meta?: any;
 }
 
 export class ApiResponse<T = any> {
   readonly status: HttpStatus;
-  readonly cookies: IResponseOptions['cookies'];
-  readonly headers: IResponseOptions['headers'];
-  readonly pagination: IResponseOptions['pagination'];
-  readonly meta: IResponseOptions['meta'];
+  readonly cookies: IApiResponseOptions['cookies'];
+  readonly headers: IApiResponseOptions['headers'];
+  readonly pagination: IApiResponseOptions['pagination'];
+  readonly meta: IApiResponseOptions['meta'];
 
   constructor(
     readonly data: T,
-    options?: IResponseOptions,
+    options?: IApiResponseOptions,
   ) {
     this.data = this.data || null;
     this.status = options?.status;
-    this.cookies = options?.cookies || {};
+    this.cookies = options?.cookies || [];
     this.headers = options?.headers || {};
     this.pagination = options?.pagination;
   }

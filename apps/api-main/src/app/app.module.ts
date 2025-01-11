@@ -1,6 +1,7 @@
 import { Module } from '@nestjs/common';
 import { ConfigModule, ConfigService } from '@nestjs/config';
 
+import { GlobalExceptionProvider } from '@libs/common/api';
 import { AllConfig, appConfig, authConfig, databaseConfig } from '@libs/config';
 import { DatabaseModule } from '@libs/database';
 import { GoogleAuthModule } from '@libs/units/auth-google';
@@ -30,5 +31,6 @@ import { UsersModule } from './users';
     UsersModule,
   ],
   controllers: [AppController],
+  providers: [GlobalExceptionProvider],
 })
 export class AppModule {}

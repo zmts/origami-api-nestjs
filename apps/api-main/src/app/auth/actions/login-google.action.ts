@@ -1,7 +1,7 @@
 import { Injectable } from '@nestjs/common';
 
 import { BaseAction } from '@libs/common/api';
-import { AuthResource } from '@libs/common/inout/resources';
+import { AuthResource } from '@libs/common/auth/inout';
 import { GoogleAuthResult } from '@libs/units/auth-google';
 
 @Injectable()

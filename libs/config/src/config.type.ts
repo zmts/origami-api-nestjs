@@ -5,21 +5,21 @@ export enum AppEnv {
 }
 
 export interface AppConfig {
+  appName: string;
   env: AppEnv;
   port: number;
-  log: { level: 'fatal' | 'error' | 'warn' | 'info' | 'debug' | 'trace' };
+  frontendUrl: string;
 }
 
 export type AuthConfig = {
   accessToken: {
     secret: string;
     expiresIn: string;
-    cookieName?: string;
-    cookiePath?: string;
   };
   refreshToken: {
-    cookieName?: string;
-    cookiePath?: string;
+    cookieName: string;
+    cookiePath: string;
+    expiresIn: string;
   };
   google: {
     clientId: string;
@@ -30,13 +30,11 @@ export type AuthConfig = {
 };
 
 export type DatabaseConfig = {
-  url?: string;
-  type?: string;
-  host?: string;
-  port?: number;
-  password?: string;
-  name?: string;
-  username?: string;
+  host: string;
+  port: number;
+  password: string;
+  name: string;
+  username: string;
   synchronize?: boolean;
   maxConnections: number;
   sslEnabled?: boolean;

@@ -1,4 +1,3 @@
-/* eslint-disable no-process-env */
 import { registerAs } from '@nestjs/config';
 import { IsNumber, IsString } from 'class-validator';
 
@@ -27,8 +26,6 @@ export default registerAs<DatabaseConfig>('database', () => {
   validateConfig(process.env, EnvironmentVariablesValidator);
 
   return {
-    url: process.env.DATABASE_URL,
-    type: process.env.DATABASE_TYPE,
     host: process.env.DATABASE_HOST,
     port: process.env.DATABASE_PORT ? parseInt(process.env.DATABASE_PORT, 10) : 5432,
     password: process.env.DATABASE_PASSWORD,

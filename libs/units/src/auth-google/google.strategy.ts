@@ -12,13 +12,13 @@ export class GoogleAuthStrategy extends PassportStrategy(Strategy) {
   }
 
   async validate(_: any, accessToken: string, refreshToken: string, profile: Profile): Promise<GoogleAuthResult> {
-    const defaultEmail = profile._json.email || profile.emails[0]?.value;
+    const primaryEmail = profile._json.email || profile.emails[0]?.value;
 
     return {
       accessToken,
       refreshToken,
       frontRedirectURL: this.options.frontRedirectURL,
-      profile: { email: defaultEmail?.toLowerCase(), ...profile },
+      profile: { email: primaryEmail?.toLowerCase(), ...profile },
     };
   }
 }

@@ -1,1 +1,2 @@
-export * as validations from './validations';
+export * from './validations';
+export * from './resources';

@@ -1,1 +1,1 @@
-export * from './auth.contract';
+export * from './success.contract';

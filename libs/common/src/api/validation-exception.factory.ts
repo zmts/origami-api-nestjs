@@ -1,8 +1,10 @@
 import { BadRequestException, ValidationError } from '@nestjs/common';
 
+import { AppError, ErrorCode } from '../errors';
+
 type ErrorType = Record<string, any[] | { constraints: any; children: any }>;
 
-export const exceptionFactory = (errors: ValidationError[]): BadRequestException => {
+export const validationExceptionFactory = (errors: ValidationError[]): BadRequestException => {
   const formatErrors = (validationErrors: ValidationError[]): ErrorType => {
     return validationErrors.reduce((acc: ErrorType, error) => {
       const constraints = Object.values(error.constraints || {});
@@ -15,8 +17,5 @@ export const exceptionFactory = (errors: ValidationError[]): BadRequestException
 
   const formattedErrors = formatErrors(errors);
 
-  return new BadRequestException({
-    message: 'Validation error',
-    error: formattedErrors,
-  });
+  return new AppError(ErrorCode.VALIDATION, { error: formattedErrors });
 };

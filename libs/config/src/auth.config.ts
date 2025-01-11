@@ -1,4 +1,3 @@
-/* eslint-disable no-process-env */
 import { registerAs } from '@nestjs/config';
 import { IsOptional, IsString } from 'class-validator';
 
@@ -14,12 +13,12 @@ class EnvironmentVariablesValidator {
 
   @IsOptional()
   @IsString()
-  AUTH_REFRESH_COOKIE_NAME?: string;
+  AUTH_REFRESH_TOKEN_EXPIRES_IN: string;
 
-  @IsOptional()
   @IsString()
-  AUTH_REFRESH_COOKIE_PATH?: string;
+  AUTH_FRONT_REDIRECT_URL: string;
 
+  // Google Auth
   @IsString()
   GOOGLE_CLIENT_ID: string;
 
@@ -28,9 +27,6 @@ class EnvironmentVariablesValidator {
 
   @IsString()
   GOOGLE_AUTH_CALLBACK_URL: string;
-
-  @IsString()
-  GOOGLE_AUTH_FRONT_REDIRECT_URL: string;
 }
 
 export default registerAs<AuthConfig>('auth', () => {
@@ -44,12 +40,13 @@ export default registerAs<AuthConfig>('auth', () => {
     refreshToken: {
       cookieName: 'refresh',
       cookiePath: '/refresh',
+      expiresIn: process.env.AUTH_REFRESH_TOKEN_EXPIRES_IN || '30d',
     },
     google: {
       clientId: process.env.GOOGLE_CLIENT_ID,
       secret: process.env.GOOGLE_CLIENT_SECRET,
       callbackUrl: process.env.GOOGLE_AUTH_CALLBACK_URL,
-      frontRedirectURL: process.env.GOOGLE_AUTH_FRONT_REDIRECT_URL,
+      frontRedirectURL: process.env.AUTH_FRONT_REDIRECT_URL,
     },
   };
 });

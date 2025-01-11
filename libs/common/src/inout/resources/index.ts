@@ -1,1 +1,1 @@
-export * from './auth.resource';
+export * from './success.resources';

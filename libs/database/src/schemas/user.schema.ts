@@ -16,7 +16,7 @@ export const UserSchema = new EntitySchema<User>({
     password: { type: 'varchar', nullable: true },
     socialProvider: { name: 'social_provider', type: 'varchar', nullable: true },
     socialId: { name: 'social_id', type: 'varchar', nullable: true },
-    bannedAt: { type: 'timestamptz', default: null, name: 'created_at' },
+    bannedAt: { type: 'timestamptz', default: null, name: 'banned_at' },
     lastLoginAt: { type: 'timestamptz', default: null, name: 'last_login_at' },
     createdAt: { type: 'timestamptz', createDate: true, name: 'created_at' },
     updatedAt: { type: 'timestamptz', updateDate: true, name: 'updated_at' },

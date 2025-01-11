@@ -1,3 +1,5 @@
+import argon2 from 'argon2';
+
 import { BaseEntity } from './base.entity';
 
 interface IUser {
@@ -17,4 +19,13 @@ interface IUser {
 }
 
 export interface User extends IUser {}
-export class User extends BaseEntity<Partial<IUser>> {}
+export class User extends BaseEntity<Partial<IUser>> {
+  static async hashPassword({ password }: { password: string }): Promise<string> {
+    return await argon2.hash(password);
+  }
+
+  static async checkPassword({ hash, password }: { hash: string; password: string }): Promise<boolean> {
+    if (!password) return false;
+    return argon2.verify(hash, password);
+  }
+}

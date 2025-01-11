@@ -1,4 +1,14 @@
 module.exports = {
+  extends: [
+    'plugin:@typescript-eslint/recommended',
+    'plugin:prettier/recommended',
+    'prettier',
+  ],
+  root: true,
+  env: {
+    node: true,
+    jest: true,
+  },
   parser: '@typescript-eslint/parser',
   parserOptions: {
     project: 'tsconfig.json',
@@ -12,16 +22,6 @@ module.exports = {
     'unused-imports',
     'unicorn',
   ],
-  extends: [
-    'plugin:@typescript-eslint/recommended',
-    'plugin:prettier/recommended',
-    'prettier',
-  ],
-  root: true,
-  env: {
-    node: true,
-    jest: true,
-  },
   settings: {
     'import/internal-regex': '^@(libs|app)',
   },
