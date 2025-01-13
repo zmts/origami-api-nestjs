@@ -1,7 +1,9 @@
 import { Injectable } from '@nestjs/common';
-import { EntityManager, FindOneOptions, UpdateResult } from 'typeorm';
+import { EntityManager, FindOneOptions, FindOptionsWhere, UpdateResult } from 'typeorm';
 import { FindManyOptions } from 'typeorm/find-options/FindManyOptions';
 import { QueryDeepPartialEntity } from 'typeorm/query-builder/QueryPartialEntity';
+
+import { AppError, ErrorCode } from '@libs/common/errors';
 
 @Injectable()
 export abstract class BaseRepo<Entity extends { [key: string]: any }> {
@@ -9,20 +11,35 @@ export abstract class BaseRepo<Entity extends { [key: string]: any }> {
 
   constructor(protected entityManager: EntityManager) {}
 
-  find(findManyOptions: FindManyOptions<Entity>): Promise<Entity[]> {
-    return this.entityManager.find(this.table, findManyOptions);
+  find(where: FindManyOptions<Entity>['where']): Promise<Entity[]> {
+    return this.entityManager.find(this.table, { where });
   }
 
-  findOne(findOneOptions: FindOneOptions<Entity>): Promise<Entity | null> {
-    return this.entityManager.findOne(this.table, findOneOptions);
+  async findOne(
+    where: FindOneOptions<Entity>['where'],
+    options?: { relations?: FindOneOptions<Entity>['relations']; findOrThrow?: boolean },
+  ): Promise<Entity | null> {
+    const data = await this.entityManager.findOne(this.table, { where });
+    if (!data && options?.findOrThrow) throw new AppError(ErrorCode.NOT_FOUND);
+    return data;
   }
 
-  findOneById({ id }: { id: number }, relations?: FindOneOptions<Entity>['relations']): Promise<Entity | null> {
-    return this.entityManager.findOne<Entity>(this.table, { where: { id: id as any }, relations });
+  async findOneById(
+    { id }: { id: number },
+    options?: { relations?: FindOneOptions<Entity>['relations']; findOrThrow?: boolean },
+  ): Promise<Entity | null> {
+    const data = await this.entityManager.findOne<Entity>(this.table, { where: { id: id as any }, relations: options?.relations });
+    if (!data && options?.findOrThrow) throw new AppError(ErrorCode.NOT_FOUND);
+    return data;
   }
 
-  findOneByUuid({ uuid }: { uuid: string }, relations?: FindOneOptions<Entity>['relations']): Promise<Entity | null> {
-    return this.entityManager.findOne<Entity>(this.table, { where: { uuid: uuid as any }, relations });
+  async findOneByUuid(
+    { uuid }: { uuid: string },
+    options?: { relations?: FindOneOptions<Entity>['relations']; findOrThrow?: boolean },
+  ): Promise<Entity | null> {
+    const data = await this.entityManager.findOne<Entity>(this.table, { where: { uuid: uuid as any }, relations: options?.relations });
+    if (!data && options?.findOrThrow) throw new AppError(ErrorCode.NOT_FOUND);
+    return data;
   }
 
   async insertOrIgnore(item: Entity): Promise<Entity | null> {
@@ -40,7 +57,7 @@ export abstract class BaseRepo<Entity extends { [key: string]: any }> {
 
   async update(entity: Entity, options: { relations?: FindOneOptions<Entity>['relations'] } = {}): Promise<Entity> {
     await this.entityManager.update(this.table, entity.id, entity);
-    return this.findOneById(entity.id, options?.relations);
+    return this.findOneById(entity.id, { relations: options?.relations });
   }
 
   async updateWhere(where: FindOneOptions<Entity>['where'], partialEntity: QueryDeepPartialEntity<Entity>): Promise<UpdateResult> {
@@ -53,8 +70,17 @@ export abstract class BaseRepo<Entity extends { [key: string]: any }> {
     return !!result?.affected;
   }
 
+  async deleteWhere(where: FindOptionsWhere<Entity>): Promise<boolean> {
+    const result = await this.entityManager.delete(this.table, where);
+    return !!result?.affected;
+  }
+
   async softDeleteById(id: number): Promise<{ id: number }> {
     const result = await this.entityManager.softRemove(this.table, { id });
     return result;
+  }
+
+  countBy(where?: FindOptionsWhere<Entity>): Promise<number> {
+    return this.entityManager.countBy(this.table, where);
   }
 }

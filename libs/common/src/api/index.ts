@@ -6,3 +6,4 @@ export { Resource } from './resource';
 export { ResourceList } from './resource-list';
 export { validationExceptionFactory } from './validation-exception.factory';
 export { GlobalExceptionProvider } from './global-exception.filter';
+export { GetAllCookies } from './get-all-cookies.decorator';

@@ -4,9 +4,9 @@ import { JwtService } from '@nestjs/jwt';
 import { BaseAction } from '@libs/common/api';
 import { AuthResource } from '@libs/common/auth';
 import { AppError, ErrorCode } from '@libs/common/errors';
-import { uuid } from '@libs/common/utils';
 import { UsersRepo } from '@libs/datalayer/users';
-import { User } from '@libs/entities';
+import { RefreshToken, User } from '@libs/entities';
+import { RefreshTokensService } from '@libs/units/refresh-tokens';
 
 import { LoginEmailDto } from '../inout/validations';
 
@@ -15,6 +15,7 @@ export class LoginEmailAction extends BaseAction<[LoginEmailDto], AuthResource> 
   constructor(
     private jwtService: JwtService,
     private usersRepo: UsersRepo,
+    private refreshTokensService: RefreshTokensService,
   ) {
     super();
   }
@@ -30,8 +31,9 @@ export class LoginEmailAction extends BaseAction<[LoginEmailDto], AuthResource> 
       throw new AppError(ErrorCode.INVALID_CREDENTIALS);
     }
 
-    const accessToken = this.jwtService.sign({ uuid: user.uuid });
-    const refreshToken = uuid();
-    return new AuthResource({ accessToken, refreshToken });
+    const refreshToken = await this.refreshTokensService.addRefreshToken(new RefreshToken({ userId: user.id }));
+
+    const accessToken = this.jwtService.sign({ email: user.email, uuid: user.uuid });
+    return new AuthResource({ accessToken, refreshToken: refreshToken.uuid });
   }
 }

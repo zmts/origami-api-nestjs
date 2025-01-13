@@ -15,7 +15,7 @@ export class RegisterAction extends BaseAction<[RegisterDto], RegisterResource> 
   }
 
   async run(dto: RegisterDto): Promise<RegisterResource> {
-    const user = await this.usersRepo.findOne({ where: { email: dto.password } });
+    const user = await this.usersRepo.findOne({ email: dto.password });
     if (user) {
       throw new AppError(ErrorCode.CONFLICT, { entity: User.name });
     }

@@ -9,6 +9,6 @@ export class UsersRepo extends BaseRepo<User> {
 
   findOneByEmail({ email }: Pick<User, 'email'>): Promise<User | null> {
     if (!email) return null;
-    return this.findOne({ where: { email } });
+    return this.findOne({ email });
   }
 }

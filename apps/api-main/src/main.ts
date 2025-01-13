@@ -2,6 +2,7 @@ import { ValidationPipe } from '@nestjs/common';
 import { CorsOptions } from '@nestjs/common/interfaces/external/cors-options.interface';
 import { ConfigService } from '@nestjs/config';
 import { NestFactory } from '@nestjs/core';
+import cookieParser from 'cookie-parser';
 
 import { ApiResponseInterceptor, validationExceptionFactory } from '@libs/common/api';
 import { AllConfig, AppEnv } from '@libs/config';
@@ -13,6 +14,11 @@ async function bootstrap(): Promise<void> {
   const confService = app.get<ConfigService<AllConfig>>(ConfigService);
   const port = confService.get<AllConfig>('app.port', { infer: true });
   const env = confService.get('app.env', { infer: true });
+
+  /**
+   * COOKIES
+   */
+  app.use(cookieParser());
 
   /**
    * CORS

@@ -74,7 +74,6 @@ export class AppError extends HttpException {
   public readonly code: string;
   public readonly layer?: string;
   public readonly meta?: any;
-  public readonly origin?: Error | AppError;
   public readonly entity?: string;
 
   constructor(
@@ -90,7 +89,6 @@ export class AppError extends HttpException {
     this.code = `${errorCode}_ERROR`;
     this.layer = options.layer;
     this.meta = options.meta;
-    this.origin = options.origin;
     this.entity = options.entity;
 
     Object.setPrototypeOf(this, AppError.prototype);

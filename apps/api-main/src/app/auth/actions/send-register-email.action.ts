@@ -15,7 +15,7 @@ export class SendRegisterEmailAction extends BaseAction<[SendRegisterEmailDto], 
   }
 
   async run(dto: SendRegisterEmailDto): Promise<SuccessResource> {
-    const user = await this.usersRepo.findOne({ where: { email: dto.email } });
+    const user = await this.usersRepo.findOne({ email: dto.email });
     if (user) {
       throw new AppError(ErrorCode.CONFLICT, { entity: User.name });
     }

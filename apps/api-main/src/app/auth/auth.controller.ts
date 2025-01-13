@@ -1,11 +1,13 @@
 import { Body, Controller, Get, HttpStatus, Post, Query, Res } from '@nestjs/common';
 import { Response } from 'express';
 
+import { GetAllCookies } from '@libs/common/api';
 import { AuthResource, SocialAuthResult } from '@libs/common/auth';
 import { SuccessResource } from '@libs/common/inout';
+import { AllCookies } from '@libs/common/types';
 import { GoogleAuthResult, UseGoogleAuth } from '@libs/units/auth-google';
 
-import { LoginEmailAction, LoginGoogleAction, RegisterAction, SendRegisterEmailAction } from './actions';
+import { LoginEmailAction, LoginGoogleAction, RefreshAction, RegisterAction, SendRegisterEmailAction } from './actions';
 import { LoginEmailDto, RegisterDto, RegisterResource, SendRegisterEmailDto } from './inout';
 
 @Controller('auth')
@@ -13,6 +15,7 @@ export class AuthController {
   constructor(
     private loginEmailAction: LoginEmailAction,
     private loginGoogleAction: LoginGoogleAction,
+    private refreshAction: RefreshAction,
     private registerAction: RegisterAction,
     private sendRegisterEmailAction: SendRegisterEmailAction,
   ) {}
@@ -36,6 +39,11 @@ export class AuthController {
       return res.status(HttpStatus.PERMANENT_REDIRECT).redirect(result.frontRedirectURL);
     }
     return new SuccessResource({ success: 'Login with Google' });
+  }
+
+  @Post('refresh')
+  refreshHandler(@GetAllCookies() cookies: AllCookies): Promise<AuthResource> {
+    return this.refreshAction.run(cookies);
   }
 
   @Post('register-link')
