@@ -33,9 +33,11 @@ export class AuthController {
     @Res() res: Response,
   ): Promise<void | SuccessResource> {
     if (code && result) {
-      // const { cookies } = await this.loginGoogleAction.run(result);
-      await this.loginGoogleAction.run(result);
-      // res.cookie(cookie.name, cookie.value, cookie.options);
+      const resource = await this.loginGoogleAction.run(result);
+      const { cookies } = resource.toResponse();
+      for (const cookie of cookies) {
+        res.cookie(cookie.name, cookie.value, cookie.options);
+      }
       return res.status(HttpStatus.PERMANENT_REDIRECT).redirect(result.frontRedirectURL);
     }
     return new SuccessResource({ success: 'Login with Google' });
