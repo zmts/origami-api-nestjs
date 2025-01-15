@@ -2,7 +2,7 @@ import { CookieOptions } from 'express';
 
 export class Cookie implements Cookie {
   constructor(props: Cookie) {
-    Object.assign(this, props);
+    Object.assign(this, { options: {}, ...props });
   }
 }
 

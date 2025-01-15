@@ -2,7 +2,7 @@ import { Injectable } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
 import { JwtService } from '@nestjs/jwt';
 
-import { BaseAction } from '@libs/common/api';
+import { BaseAction, Cookie } from '@libs/common/api';
 import { AuthResource } from '@libs/common/auth';
 import { ErrorCode, AppError } from '@libs/common/errors';
 import { AllCookies } from '@libs/common/types';
@@ -37,6 +37,9 @@ export class RefreshAction extends BaseAction<[AllCookies], AuthResource> {
     const refreshToken = await this.refreshTokensService.addRefreshToken(new RefreshToken({ userId }));
     const accessToken = this.jwtService.sign({ uuid: user.uuid });
 
-    return new AuthResource({ accessToken, refreshToken: refreshToken.uuid });
+    return new AuthResource(
+      { accessToken, refreshToken: refreshToken.uuid },
+      { cookies: [new Cookie({ name: 'refreshToken', value: refreshToken.uuid })] },
+    );
   }
 }

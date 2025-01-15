@@ -1,15 +1,16 @@
-import { IApiPaginationResponse, ApiResponse } from './api-response';
+import { ApiResponse } from './api-response';
 import { Resource } from './resource';
+import { IPaginationResponse } from './types';
 
 export class ResourceList<Contract> {
   private readonly list: any[];
-  private readonly pagination: IApiPaginationResponse;
+  private readonly pagination: IPaginationResponse;
   private readonly meta: any;
 
   constructor(
     private resource: new (item: any) => Resource<Contract>,
     list: Array<any>,
-    options?: { pagination?: IApiPaginationResponse; meta?: { [key: string]: any } },
+    options?: { pagination?: IPaginationResponse; meta?: { [key: string]: any } },
   ) {
     this.list = list;
     this.pagination = options.pagination;

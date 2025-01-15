@@ -2,14 +2,14 @@ import { CallHandler, ExecutionContext, HttpStatus, Injectable } from '@nestjs/c
 import { Response as HttpResponse } from 'express';
 import { map, Observable } from 'rxjs';
 
-import { IApiPaginationResponse } from './api-response';
 import { Resource } from './resource';
 import { ResourceList } from './resource-list';
+import { IPaginationResponse } from './types';
 
 interface IApiResponse {
   data: any;
   status: HttpStatus;
-  pagination?: IApiPaginationResponse;
+  pagination?: IPaginationResponse;
   meta?: any;
 }
 
@@ -31,15 +31,15 @@ export class ApiResponseInterceptor {
 
       const apiResponse = resource.toResponse();
 
-      if (apiResponse.cookies) {
-        // const cookies = Object.values(apiResponse.cookies);
-        // this.setCookies(response, cookies);
+      if (apiResponse.cookies?.length) {
+        for (const cookie of apiResponse.cookies) {
+          response.cookie(cookie.name, cookie.value, cookie.options);
+        }
       }
 
-      const headers = apiResponse.headers;
-
-      if (typeof headers === 'object' && headers !== null) {
-        // this.setHeaders(response, headers);
+      const headers = apiResponse.headers || {};
+      for (const headerKey in headers) {
+        response.header(headerKey, headers[headerKey]);
       }
 
       return {

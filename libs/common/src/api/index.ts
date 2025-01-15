@@ -1,4 +1,5 @@
-export { ApiResponse, IApiPaginationResponse } from './api-response';
+export { ApiResponse } from './api-response';
+export { IPaginationResponse, IResponseOptions } from './types';
 export { ApiResponseInterceptor } from './api-response.interceptor';
 export { Cookie } from './cookie';
 export { BaseAction } from './base.action';

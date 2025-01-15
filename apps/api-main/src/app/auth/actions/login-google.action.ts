@@ -11,6 +11,6 @@ export class LoginGoogleAction extends BaseAction<[GoogleAuthResult], AuthResour
   }
 
   async run(authResult: GoogleAuthResult): Promise<AuthResource> {
-    return new AuthResource({ accessToken: authResult.profile.email, refreshToken: authResult.profile.id });
+    return new AuthResource({ accessToken: authResult.profile.email, refreshToken: authResult.profile.id }, {});
   }
 }
