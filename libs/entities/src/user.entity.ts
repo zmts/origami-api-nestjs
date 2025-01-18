@@ -1,10 +1,12 @@
 import argon2 from 'argon2';
 
+import { UserId, UserUuid } from '@libs/common/types/global';
+
 import { BaseEntity } from './base.entity';
 
 interface IUser {
-  id: number;
-  uuid: string;
+  id: UserId;
+  uuid: UserUuid;
   email: string;
   password: string;
   username: string;

@@ -2,9 +2,10 @@ import { Body, Controller, Get, HttpStatus, Post, Query, Res } from '@nestjs/com
 import { Response } from 'express';
 
 import { GetAllCookies } from '@libs/common/api';
-import { AuthResource, SocialAuthResult } from '@libs/common/auth';
 import { SuccessResource } from '@libs/common/inout';
 import { AllCookies } from '@libs/common/types';
+import { SocialAuthResult } from '@libs/units/auth';
+import { AuthResource } from '@libs/units/auth/inout/resources';
 import { GoogleAuthResult, UseGoogleAuth } from '@libs/units/auth-google';
 
 import { LoginEmailAction, LoginGoogleAction, RefreshAction, RegisterAction, SendRegisterEmailAction } from './actions';

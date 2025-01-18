@@ -7,9 +7,11 @@ export abstract class Resource<Contract = any> {
   options?(): IResponseOptions;
 
   protected setResult<Contract>(item: any, contract: new () => Contract): Contract {
+    if (!item) return null;
+
     const contractResult = new contract();
     for (const key in contractResult) {
-      contractResult[key] = item[key];
+      contractResult[key] = item && item[key] ? item[key] : null;
     }
     return contractResult;
   }
@@ -19,6 +21,6 @@ export abstract class Resource<Contract = any> {
   }
 
   toResponse(): ApiResponse<Contract> {
-    return new ApiResponse(this.result(), this.options());
+    return new ApiResponse(this.result(), this.options ? this.options() : {});
   }
 }

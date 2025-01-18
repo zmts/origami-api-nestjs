@@ -2,10 +2,11 @@ import { Injectable } from '@nestjs/common';
 import { JwtService } from '@nestjs/jwt';
 
 import { BaseAction, Cookie } from '@libs/common/api';
-import { AuthResource } from '@libs/common/auth';
 import { AppError, ErrorCode } from '@libs/common/errors';
 import { UsersRepo } from '@libs/datalayer/users';
 import { RefreshToken, User } from '@libs/entities';
+import { CurrentUserJwt } from '@libs/units/auth';
+import { AuthResource } from '@libs/units/auth/inout/resources';
 import { RefreshTokensService } from '@libs/units/refresh-tokens';
 
 import { LoginEmailDto } from '../inout/validations';
@@ -32,8 +33,7 @@ export class LoginEmailAction extends BaseAction<[LoginEmailDto], AuthResource> 
     }
 
     const refreshToken = await this.refreshTokensService.addRefreshToken(new RefreshToken({ userId: user.id }));
-
-    const accessToken = this.jwtService.sign({ email: user.email, uuid: user.uuid });
+    const accessToken = this.jwtService.sign(new CurrentUserJwt({ id: user.id, uuid: user.uuid, email: user.email }).toJSON());
     return new AuthResource(
       { accessToken, refreshToken: refreshToken.uuid },
       { cookies: [new Cookie({ name: 'refreshToken', value: refreshToken.uuid })] },

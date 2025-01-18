@@ -1,9 +1,10 @@
-import { UserContract } from '@api-main/users/inout/contracts';
-import { UserResource } from '@api-main/users/inout/resources';
 import { Injectable } from '@nestjs/common';
 
 import { BaseAction, ResourceList } from '@libs/common/api';
 import { UsersRepo } from '@libs/datalayer/users';
+
+import { UserContract } from '../inout/contracts';
+import { UserResource } from '../inout/resources';
 
 @Injectable()
 export class ListUsersAction extends BaseAction<[], ResourceList<UserContract>> {

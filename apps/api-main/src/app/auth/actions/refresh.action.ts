@@ -3,13 +3,13 @@ import { ConfigService } from '@nestjs/config';
 import { JwtService } from '@nestjs/jwt';
 
 import { BaseAction, Cookie } from '@libs/common/api';
-import { AuthResource } from '@libs/common/auth';
 import { ErrorCode, AppError } from '@libs/common/errors';
 import { AllCookies } from '@libs/common/types';
 import { AllConfig } from '@libs/config';
 import { RefreshTokensRepo } from '@libs/datalayer/refresh-tokens';
 import { UsersRepo } from '@libs/datalayer/users';
 import { RefreshToken } from '@libs/entities';
+import { AuthResource } from '@libs/units/auth/inout/resources';
 import { RefreshTokensService } from '@libs/units/refresh-tokens';
 
 @Injectable()

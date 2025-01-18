@@ -8,6 +8,7 @@ import { GoogleAuthModule } from '@libs/units/auth-google';
 
 import { AppController } from './app.controller';
 import { AuthModule } from './auth';
+import { PostsModule } from './posts';
 import { UsersModule } from './users';
 
 @Module({
@@ -29,6 +30,7 @@ import { UsersModule } from './users';
     DatabaseModule,
     AuthModule,
     UsersModule,
+    PostsModule,
   ],
   controllers: [AppController],
   providers: [GlobalExceptionProvider],

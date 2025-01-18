@@ -1,8 +1,8 @@
-import { GetUserAction, ListUsersAction } from '@api-main/users/actions';
 import { Controller, Get, Param, ParseUUIDPipe } from '@nestjs/common';
 
 import { ResourceList } from '@libs/common/api';
 
+import { GetUserAction, ListUsersAction } from './actions';
 import { UserContract } from './inout/contracts';
 import { UserResource } from './inout/resources';
 
