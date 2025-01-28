@@ -30,6 +30,10 @@ export const PostSchema = new EntitySchema<Post>({
       name: 'IDX_posts__title-description-is_private',
       columns: ['title', 'description', 'isPrivate'],
     },
+    {
+      name: 'IDX_posts__title-description-is_privatesss',
+      columns: ['title', 'description', 'isPrivate'],
+    },
   ],
   relations: {
     user: {
@@ -37,6 +41,15 @@ export const PostSchema = new EntitySchema<Post>({
       target: 'User',
       joinColumn: { name: 'user_id' },
       onDelete: 'CASCADE',
+    },
+    tags: {
+      type: 'many-to-many',
+      target: 'Tag',
+      joinTable: {
+        name: 'posts_tags',
+        joinColumn: { name: 'post_id' },
+        inverseJoinColumn: { name: 'tag_id' },
+      },
     },
   },
 });

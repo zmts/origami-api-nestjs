@@ -1,6 +1,6 @@
 import { UserId } from '@libs/common/types/global';
 import { uuid } from '@libs/common/utils';
-import { User } from '@libs/entities';
+import { Tag, User } from '@libs/entities';
 
 import { BaseEntity } from './base.entity';
 
@@ -18,6 +18,7 @@ interface IPost {
 
 export interface Post extends IPost {
   user?: User | null;
+  tags?: Tag[];
 }
 
 export class Post extends BaseEntity<Partial<IPost>> {
