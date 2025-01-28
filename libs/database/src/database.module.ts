@@ -20,7 +20,7 @@ import * as schemas from './schemas';
         database: config.getOrThrow('database.name', { infer: true }),
         entities: [...Object.values(schemas)],
         synchronize: false,
-        logging: ['error'],
+        logging: true,
         maxQueryExecutionTime: 1000,
       }),
     }),

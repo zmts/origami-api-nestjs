@@ -19,7 +19,7 @@ export abstract class BaseRepo<Entity extends { [key: string]: any }> {
     where: FindOneOptions<Entity>['where'],
     options?: { relations?: FindOneOptions<Entity>['relations']; findOrThrow?: boolean },
   ): Promise<Entity | null> {
-    const data = await this.entityManager.findOne(this.table, { where });
+    const data = await this.entityManager.findOne(this.table, { where, relations: options?.relations });
     if (!data && options?.findOrThrow) throw new AppError(ErrorCode.NOT_FOUND);
     return data;
   }

@@ -30,7 +30,7 @@ export class JwtGuard implements CanActivate {
   }
 
   private getAccessToken(request: Request): string {
-    const bearer = request.headers?.authorization;
+    const bearer = request.headers?.authorization || '';
     const [, accessToken] = bearer.split('Bearer ');
     return accessToken || null;
   }
