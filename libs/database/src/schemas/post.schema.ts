@@ -33,12 +33,9 @@ export const PostSchema = new EntitySchema<Post>({
   ],
   relations: {
     user: {
-      type: 'one-to-one',
+      type: 'many-to-one',
       target: 'User',
-      joinColumn: {
-        name: 'user_id',
-        referencedColumnName: 'id',
-      },
+      joinColumn: { name: 'user_id' },
       onDelete: 'CASCADE',
     },
   },
