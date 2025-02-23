@@ -27,6 +27,12 @@
       "@api-main/*": [
         "apps/api-main/src/app/*"
       ],
+      "@processor": [
+        "apps/processor/src/app"
+      ],
+      "@processor/*": [
+        "apps/processor/src/app/*"
+      ],
       "@libs/common": [
         "libs/common/src"
       ],

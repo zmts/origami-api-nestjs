@@ -23,7 +23,7 @@ module.exports = {
     'unicorn',
   ],
   settings: {
-    'import/internal-regex': '^@(libs|app)',
+    'import/internal-regex': '^@(libs|apps)',
   },
   ignorePatterns: ['.eslintrc.js'],
   rules: {
