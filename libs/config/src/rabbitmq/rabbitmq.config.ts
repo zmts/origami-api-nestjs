@@ -4,7 +4,7 @@ import { IsString, Matches } from 'class-validator';
 
 import { validateConfig } from '@libs/config/validate-config';
 
-import { RabbitMQConfig } from './config.type';
+import { IRabbitMQConfig } from './types';
 
 class EnvironmentVariablesValidator {
   @IsString()
@@ -12,7 +12,9 @@ class EnvironmentVariablesValidator {
   RABBITMQ_URL: string;
 }
 
-export default registerAs<RabbitMQConfig>('rabbitmq', (): RabbitMQConfig => {
+export const TOKEN = 'rabbitmq';
+
+export default registerAs<IRabbitMQConfig>(TOKEN, (): IRabbitMQConfig => {
   validateConfig(process.env, EnvironmentVariablesValidator);
 
   return {

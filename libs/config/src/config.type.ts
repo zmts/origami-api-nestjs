@@ -1,5 +1,3 @@
-import { Transport } from '@nestjs/microservices';
-
 export enum AppEnv {
   Dev = 'development',
   Stage = 'stage',
@@ -46,20 +44,8 @@ export type DatabaseConfig = {
   cert?: string;
 };
 
-export interface RabbitMQConfig {
-  transport: Transport.RMQ;
-  options: {
-    urls: string[];
-    queueOptions: {
-      durable: boolean;
-    };
-    queue?: string;
-  };
-}
-
 export type AllConfig = {
   app: AppConfig;
   auth: AuthConfig;
   database: DatabaseConfig;
-  rabbitmq: RabbitMQConfig;
 };

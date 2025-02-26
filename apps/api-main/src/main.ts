@@ -6,7 +6,7 @@ import { MicroserviceOptions } from '@nestjs/microservices';
 import cookieParser from 'cookie-parser';
 
 import { ApiResponseInterceptor, validationExceptionFactory } from '@libs/common/api';
-import { AllConfig, AppEnv } from '@libs/config';
+import { AllConfig, AppEnv, RabbitMqConfigService } from '@libs/config';
 
 import { AppModule } from './app/app.module';
 
@@ -15,7 +15,6 @@ async function bootstrap(): Promise<void> {
   const confService = app.get<ConfigService<AllConfig>>(ConfigService);
   const port = confService.get<AllConfig>('app.port', { infer: true });
   const env = confService.get('app.env', { infer: true });
-  const configService = app.get<ConfigService<AllConfig>>(ConfigService);
 
   /**
    * COOKIES
@@ -50,11 +49,8 @@ async function bootstrap(): Promise<void> {
   /**
    * RABBITMQ MICROSERVICES
    */
-  const rabbitMQConfig = configService.get('rabbitmq', { infer: true });
-  app.connectMicroservice<MicroserviceOptions>({
-    transport: rabbitMQConfig.transport,
-    options: { ...rabbitMQConfig.options },
-  });
+  const rabbitMqConfig = app.get(RabbitMqConfigService).getInitOptions();
+  app.connectMicroservice<MicroserviceOptions>(rabbitMqConfig);
   await app.startAllMicroservices();
 
   await app.listen(port);

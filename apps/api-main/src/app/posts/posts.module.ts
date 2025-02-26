@@ -1,10 +1,10 @@
 import { Module } from '@nestjs/common';
-import { ConfigModule, ConfigService } from '@nestjs/config';
+import { ConfigModule } from '@nestjs/config';
 import { ClientsModule } from '@nestjs/microservices';
 
-import { AllConfig } from '@libs/config';
+import { IRabbitMQConfig, RabbitMqConfigModule, RabbitMqConfigService } from '@libs/config';
+import { RabbitQueues } from '@libs/config/rabbitmq';
 import { PostsRepoModule } from '@libs/datalayer/posts';
-import { RabbitQueues } from '@libs/units/rabbitmq';
 
 import { CreatePostAction, GetPostAction } from './actions';
 import { PostsController } from './posts.controller';
@@ -15,18 +15,9 @@ import { PostsController } from './posts.controller';
     ClientsModule.registerAsync([
       {
         name: RabbitQueues.processor,
-        imports: [ConfigModule],
-        inject: [ConfigService],
-        useFactory: (configService: ConfigService<AllConfig>) => {
-          const config = configService.get('rabbitmq', { infer: true });
-          return {
-            transport: config.transport,
-            options: {
-              ...config.options,
-              queue: RabbitQueues.processor,
-            },
-          };
-        },
+        imports: [ConfigModule, RabbitMqConfigModule],
+        inject: [RabbitMqConfigService],
+        useFactory: (configService: RabbitMqConfigService): IRabbitMQConfig => configService.getQueueOptions(RabbitQueues.processor),
       },
     ]),
   ],
