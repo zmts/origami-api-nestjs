@@ -1,2 +1,2 @@
 export * from './queues.enum';
-export * from './jobs.enum';
+export * from './events.enum';
