@@ -3,6 +3,7 @@ import { ConfigModule } from '@nestjs/config';
 
 import { rabbitMQConfig } from '@libs/config';
 
+import { AppController } from './app.controller';
 import { AppService } from './app.service';
 
 @Module({
@@ -13,5 +14,6 @@ import { AppService } from './app.service';
     }),
   ],
   providers: [AppService],
+  controllers: [AppController],
 })
 export class AppModule {}

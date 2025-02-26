@@ -19,9 +19,7 @@ export default registerAs<RabbitMQConfig>('rabbitmq', (): RabbitMQConfig => {
     transport: Transport.RMQ,
     options: {
       urls: [process.env.RABBITMQ_URL],
-      queueOptions: {
-        durable: false,
-      },
+      queueOptions: { durable: true },
     },
   };
 });

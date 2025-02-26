@@ -2,6 +2,7 @@ import { ValidationPipe } from '@nestjs/common';
 import { CorsOptions } from '@nestjs/common/interfaces/external/cors-options.interface';
 import { ConfigService } from '@nestjs/config';
 import { NestFactory } from '@nestjs/core';
+import { MicroserviceOptions } from '@nestjs/microservices';
 import cookieParser from 'cookie-parser';
 
 import { ApiResponseInterceptor, validationExceptionFactory } from '@libs/common/api';
@@ -14,6 +15,7 @@ async function bootstrap(): Promise<void> {
   const confService = app.get<ConfigService<AllConfig>>(ConfigService);
   const port = confService.get<AllConfig>('app.port', { infer: true });
   const env = confService.get('app.env', { infer: true });
+  const configService = app.get<ConfigService<AllConfig>>(ConfigService);
 
   /**
    * COOKIES
@@ -45,6 +47,15 @@ async function bootstrap(): Promise<void> {
       exceptionFactory: validationExceptionFactory,
     }),
   );
+  /**
+   * RABBITMQ MICROSERVICES
+   */
+  const rabbitMQConfig = configService.get('rabbitmq', { infer: true });
+  app.connectMicroservice<MicroserviceOptions>({
+    transport: rabbitMQConfig.transport,
+    options: { ...rabbitMQConfig.options },
+  });
+  await app.startAllMicroservices();
 
   await app.listen(port);
 }
