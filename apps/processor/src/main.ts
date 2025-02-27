@@ -15,7 +15,6 @@ async function bootstrap(): Promise<void> {
   app.connectMicroservice<MicroserviceOptions>(rabbitMqConfig);
   await app.startAllMicroservices();
 
-  await app.startAllMicroservices();
   logger.log('Processor is listening for tasks...');
 }
 
