@@ -1,4 +1,4 @@
-import { Resource } from '@libs/common/api';
+import { Resource } from '@libs/core/api';
 import { User } from '@libs/entities';
 
 import { UserContract } from '../contracts';

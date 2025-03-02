@@ -1,8 +1,8 @@
 import { Injectable } from '@nestjs/common';
 
-import { BaseAction } from '@libs/common/api';
-import { AppError, ErrorCode } from '@libs/common/errors';
-import { uuid } from '@libs/common/utils';
+import { BaseAction } from '@libs/core/api';
+import { AppError, ErrorCode } from '@libs/core/errors';
+import { uuid7 } from '@libs/core/utils';
 import { UsersRepo } from '@libs/datalayer/users';
 import { User } from '@libs/entities';
 
@@ -23,7 +23,7 @@ export class RegisterAction extends BaseAction<[RegisterDto], RegisterResource> 
     await this.usersRepo.save(
       new User({
         ...dto,
-        uuid: uuid(),
+        uuid: uuid7(),
         password: await User.hashPassword({ password: dto.password }),
       }),
     );

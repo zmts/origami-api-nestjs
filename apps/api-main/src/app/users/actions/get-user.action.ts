@@ -1,7 +1,7 @@
 import { Injectable } from '@nestjs/common';
 
-import { BaseAction } from '@libs/common/api';
 import { UserUuid } from '@libs/common/types/global';
+import { BaseAction } from '@libs/core/api';
 import { UsersRepo } from '@libs/datalayer/users';
 
 import { UserResource } from '../inout/resources';

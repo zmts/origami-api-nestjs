@@ -3,8 +3,8 @@ import { ConfigService } from '@nestjs/config';
 import { Request } from 'express';
 import jsonwebtoken from 'jsonwebtoken';
 
-import { AppError, ErrorCode } from '@libs/common/errors';
 import { AllConfig } from '@libs/config';
+import { AppError, ErrorCode } from '@libs/core/errors';
 
 @Injectable()
 export class JwtGuard implements CanActivate {

@@ -1,10 +1,10 @@
 import { Injectable } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
 
-import { AppError, ErrorCode } from '@libs/common/errors';
 import { UserId } from '@libs/common/types/global';
-import { uuid } from '@libs/common/utils';
 import { AllConfig } from '@libs/config';
+import { AppError, ErrorCode } from '@libs/core/errors';
+import { uuid7 } from '@libs/core/utils';
 import { RefreshTokensRepo } from '@libs/datalayer/refresh-tokens';
 import { RefreshToken } from '@libs/entities';
 
@@ -51,7 +51,7 @@ export class RefreshTokensService {
   }
 
   private async addNewRefreshToken(refreshToken: RefreshToken): Promise<RefreshToken> {
-    refreshToken.uuid = uuid();
+    refreshToken.uuid = uuid7();
     const upatedRefreshToken = await this.refreshTokensRepo.save(refreshToken);
     return upatedRefreshToken;
   }

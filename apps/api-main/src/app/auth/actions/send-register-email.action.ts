@@ -1,8 +1,8 @@
 import { Injectable } from '@nestjs/common';
 
-import { BaseAction } from '@libs/common/api';
-import { AppError, ErrorCode } from '@libs/common/errors';
-import { SuccessResource } from '@libs/common/inout';
+import { BaseAction } from '@libs/core/api';
+import { AppError, ErrorCode } from '@libs/core/errors';
+import { SuccessResource } from '@libs/core/inout';
 import { UsersRepo } from '@libs/datalayer/users';
 import { User } from '@libs/entities';
 

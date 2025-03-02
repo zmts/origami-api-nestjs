@@ -1,5 +1,5 @@
 import { UserId } from '@libs/common/types/global';
-import { uuid } from '@libs/common/utils';
+import { uuid7 } from '@libs/core/utils';
 import { Tag, User } from '@libs/entities';
 
 import { BaseEntity } from './base.entity';
@@ -25,7 +25,7 @@ export class Post extends BaseEntity<Partial<IPost>> {
   constructor(item: Partial<IPost>) {
     super(item);
     if (!item?.uuid) {
-      this.uuid = uuid();
+      this.uuid = uuid7();
     }
   }
 }

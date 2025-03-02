@@ -1,9 +1,9 @@
 import { Injectable } from '@nestjs/common';
 
-import { BaseAction } from '@libs/common/api';
+import { CurrentUserJwt } from '@libs/common/auth';
+import { BaseAction } from '@libs/core/api';
 import { PostsRepo } from '@libs/datalayer/posts';
 import { Post } from '@libs/entities';
-import { CurrentUserJwt } from '@libs/units/auth';
 
 import { PostResource } from '../inout/resources';
 import { CreatePostDto } from '../inout/validations';

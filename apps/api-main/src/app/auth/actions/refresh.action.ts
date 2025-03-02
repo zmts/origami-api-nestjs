@@ -2,15 +2,15 @@ import { Injectable } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
 import { JwtService } from '@nestjs/jwt';
 
-import { BaseAction, Cookie } from '@libs/common/api';
-import { ErrorCode, AppError } from '@libs/common/errors';
-import { AllCookies } from '@libs/common/types';
+import { AuthResource } from '@libs/common/auth/inout/resources';
+import { RefreshTokensService } from '@libs/common/refresh-tokens';
 import { AllConfig } from '@libs/config';
+import { BaseAction, Cookie } from '@libs/core/api';
+import { ErrorCode, AppError } from '@libs/core/errors';
+import { AllCookies } from '@libs/core/types';
 import { RefreshTokensRepo } from '@libs/datalayer/refresh-tokens';
 import { UsersRepo } from '@libs/datalayer/users';
 import { RefreshToken } from '@libs/entities';
-import { AuthResource } from '@libs/units/auth/inout/resources';
-import { RefreshTokensService } from '@libs/units/refresh-tokens';
 
 @Injectable()
 export class RefreshAction extends BaseAction<[AllCookies], AuthResource> {

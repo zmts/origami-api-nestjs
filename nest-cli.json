@@ -71,15 +71,6 @@
       "compilerOptions": {
         "tsConfigPath": "libs/config/tsconfig.lib.json"
       }
-    },
-    "units": {
-      "type": "library",
-      "root": "libs/units",
-      "entryFile": "index",
-      "sourceRoot": "libs/units/src",
-      "compilerOptions": {
-        "tsConfigPath": "libs/units/tsconfig.lib.json"
-      }
     }
   }
 }

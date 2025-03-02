@@ -1,4 +1,4 @@
-import { Resource } from '@libs/common/api';
+import { Resource } from '@libs/core/api';
 import { Post } from '@libs/entities';
 
 import { PostContract } from '../contracts';

@@ -1,9 +1,9 @@
 import { Injectable } from '@nestjs/common';
 
-import { BaseAction } from '@libs/common/api';
+import { CurrentUserJwt } from '@libs/common/auth';
+import { ownerPolicy } from '@libs/common/users';
+import { BaseAction } from '@libs/core/api';
 import { PostsRepo } from '@libs/datalayer/posts';
-import { CurrentUserJwt } from '@libs/units/auth';
-import { ownerPolicy } from '@libs/units/users';
 
 import { TagResource } from '../inout/resources';
 import { DetachTagDto } from '../inout/validations';

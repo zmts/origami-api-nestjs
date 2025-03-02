@@ -39,6 +39,12 @@
       "@libs/common/*": [
         "libs/common/src/*"
       ],
+      "@libs/core": [
+        "libs/core/src"
+      ],
+      "@libs/core/*": [
+        "libs/core/src/*"
+      ],
       "@libs/entities": [
         "libs/entities/src"
       ],
@@ -62,12 +68,6 @@
       ],
       "@libs/config/*": [
         "libs/config/src/*"
-      ],
-      "@libs/units": [
-        "libs/units/src"
-      ],
-      "@libs/units/*": [
-        "libs/units/src/*"
       ]
     }
   }

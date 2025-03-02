@@ -1,6 +1,6 @@
 import { Injectable } from '@nestjs/common';
 
-import { BaseRepo } from '@libs/common/typeorm';
+import { BaseRepo } from '@libs/core/typeorm';
 import { RefreshToken } from '@libs/entities';
 
 @Injectable()

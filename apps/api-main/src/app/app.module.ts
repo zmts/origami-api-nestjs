@@ -1,10 +1,10 @@
 import { Module } from '@nestjs/common';
 import { ConfigModule, ConfigService } from '@nestjs/config';
 
-import { GlobalExceptionProvider } from '@libs/common/api';
+import { GoogleAuthModule } from '@libs/common/auth-google';
 import { AllConfig, appConfig, authConfig, databaseConfig, RabbitMqConfigModule } from '@libs/config';
+import { GlobalExceptionProvider } from '@libs/core/api';
 import { DatabaseModule } from '@libs/database';
-import { GoogleAuthModule } from '@libs/units/auth-google';
 
 import { AppController } from './app.controller';
 import { AuthModule } from './auth';

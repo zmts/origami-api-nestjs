@@ -2,9 +2,9 @@ import { Inject, Injectable, UseGuards } from '@nestjs/common';
 import { ClientProxy } from '@nestjs/microservices';
 import { firstValueFrom } from 'rxjs';
 
-import { BaseAction } from '@libs/common/api';
 import { PostUuid } from '@libs/common/types/global';
 import { EventType, RabbitQueues } from '@libs/config/rabbitmq';
+import { BaseAction } from '@libs/core/api';
 import { PostsRepo } from '@libs/datalayer/posts';
 
 import { PostResource } from '../inout/resources';

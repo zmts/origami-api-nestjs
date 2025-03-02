@@ -1,6 +1,6 @@
 import { Body, Controller, Post, UseGuards } from '@nestjs/common';
 
-import { CurrentUser, CurrentUserJwt, JwtGuard } from '@libs/units/auth';
+import { CurrentUser, CurrentUserJwt, JwtGuard } from '@libs/common/auth';
 
 import { AttachTagAction, DetachTagAction } from './actions';
 import { TagResource } from './inout/resources';

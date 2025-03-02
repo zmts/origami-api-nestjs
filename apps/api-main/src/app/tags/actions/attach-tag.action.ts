@@ -1,12 +1,12 @@
 import { Injectable } from '@nestjs/common';
 
-import { BaseAction } from '@libs/common/api';
-import { AppError, ErrorCode } from '@libs/common/errors';
+import { CurrentUserJwt } from '@libs/common/auth';
+import { ownerPolicy } from '@libs/common/users';
+import { BaseAction } from '@libs/core/api';
+import { AppError, ErrorCode } from '@libs/core/errors';
 import { PostsRepo } from '@libs/datalayer/posts';
 import { TagsRepo } from '@libs/datalayer/tags';
 import { Tag } from '@libs/entities';
-import { CurrentUserJwt } from '@libs/units/auth';
-import { ownerPolicy } from '@libs/units/users';
 
 import { TagResource } from '../inout/resources';
 import { AttachTagDto } from '../inout/validations';

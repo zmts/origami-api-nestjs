@@ -1,6 +1,6 @@
 import { Controller, Get } from '@nestjs/common';
 
-import { Resource } from '@libs/common/api';
+import { Resource } from '@libs/core/api';
 
 class HealthInfoContract {
   // serverTimeAlive: string,

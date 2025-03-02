@@ -1,7 +1,7 @@
 import { Injectable } from '@nestjs/common';
 
-import { BaseRepo } from '@libs/common/typeorm';
-import { uuid } from '@libs/common/utils';
+import { BaseRepo } from '@libs/core/typeorm';
+import { uuid7 } from '@libs/core/utils';
 import { User } from '@libs/entities';
 
 @Injectable()
@@ -30,7 +30,7 @@ export class UsersRepo extends BaseRepo<User> {
       if (!user) {
         user = await this.save(
           new User({
-            uuid: uuid(),
+            uuid: uuid7(),
             socialProvider: provider,
             socialId,
             email: email || null,

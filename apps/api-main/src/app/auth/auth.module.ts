@@ -2,10 +2,10 @@ import { Module } from '@nestjs/common';
 import { ConfigModule, ConfigService } from '@nestjs/config';
 import { JwtModule, JwtModuleOptions } from '@nestjs/jwt';
 
+import { RefreshTokensModule } from '@libs/common/refresh-tokens';
 import { AllConfig } from '@libs/config';
 import { RefreshTokensRepoModule } from '@libs/datalayer/refresh-tokens';
 import { UsersRepoModule } from '@libs/datalayer/users';
-import { RefreshTokensModule } from '@libs/units/refresh-tokens';
 
 import { LoginEmailAction, LoginGoogleAction, RefreshAction, RegisterAction, SendRegisterEmailAction } from './actions';
 import { AuthController } from './auth.controller';

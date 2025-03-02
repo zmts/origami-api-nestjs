@@ -25,7 +25,7 @@ module.exports = {
   settings: {
     'import/internal-regex': '^@(libs|apps)',
   },
-  ignorePatterns: ['.eslintrc.js'],
+  ignorePatterns: ['.eslintrc.js', 'dist'],
   rules: {
     'prettier/prettier': ['error'],
     'max-len': ['error', { code: 140, ignoreComments: true }],

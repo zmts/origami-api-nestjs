@@ -5,8 +5,8 @@ import { NestFactory } from '@nestjs/core';
 import { MicroserviceOptions } from '@nestjs/microservices';
 import cookieParser from 'cookie-parser';
 
-import { ApiResponseInterceptor, validationExceptionFactory } from '@libs/common/api';
 import { AllConfig, AppEnv, RabbitMqConfigService } from '@libs/config';
+import { ApiResponseInterceptor, validationExceptionFactory } from '@libs/core/api';
 
 import { AppModule } from './app/app.module';
 

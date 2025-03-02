@@ -1,6 +1,6 @@
 import { Profile, StrategyOptions } from 'passport-google-oauth20';
 
-import { ISocialAuthResult } from '@libs/units/auth';
+import { ISocialAuthResult } from '@libs/common/auth';
 
 export type GoogleAuthModuleOptions = StrategyOptions & { passReqToCallback?: boolean; frontRedirectURL?: string };
 

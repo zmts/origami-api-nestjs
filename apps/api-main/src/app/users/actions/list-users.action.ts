@@ -1,6 +1,6 @@
 import { Injectable } from '@nestjs/common';
 
-import { BaseAction, ResourceList } from '@libs/common/api';
+import { BaseAction, ResourceList } from '@libs/core/api';
 import { UsersRepo } from '@libs/datalayer/users';
 
 import { UserContract } from '../inout/contracts';

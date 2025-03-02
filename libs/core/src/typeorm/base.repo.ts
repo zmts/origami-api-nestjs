@@ -3,7 +3,7 @@ import { EntityManager, FindOneOptions, FindOptionsWhere, UpdateResult } from 't
 import { FindManyOptions } from 'typeorm/find-options/FindManyOptions';
 import { QueryDeepPartialEntity } from 'typeorm/query-builder/QueryPartialEntity';
 
-import { AppError, ErrorCode } from '@libs/common/errors';
+import { AppError, ErrorCode } from '@libs/core/errors';
 
 @Injectable()
 export abstract class BaseRepo<Entity extends { [key: string]: any }> {
