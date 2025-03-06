@@ -6,12 +6,13 @@ import { ProcessorEvents } from '@libs/agents/processor';
 import { RabbitQueues } from '@libs/config/rabbitmq';
 
 import { MakeJobResult } from './processor-result.type';
+import { MakeJobPayload } from './validations';
 
 @Injectable()
 export class ProcessorAgent {
   constructor(@Inject(RabbitQueues.processor) private readonly client: ClientProxy) {}
 
-  async makeJob(payload: { id: string }): Promise<MakeJobResult> {
+  async makeJob(payload: MakeJobPayload): Promise<MakeJobResult> {
     const result = await firstValueFrom<MakeJobResult>(this.client.send(ProcessorEvents.job, payload));
     return result;
   }
