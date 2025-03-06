@@ -1,13 +1,17 @@
-import { Controller } from '@nestjs/common';
+import { Controller, UseFilters, UsePipes, ValidationPipe } from '@nestjs/common';
 import { MessagePattern, Payload } from '@nestjs/microservices';
 
-import { EventType } from '@libs/config/rabbitmq';
+import { ProcessorEvents, MakeJobResult } from '@libs/agents/processor';
+import { MakeJobPayload } from '@libs/agents/processor/validations';
+import { RabbitMqValidationExceptionFilter } from '@libs/core/rabbitmq';
 
+@UseFilters(RabbitMqValidationExceptionFilter)
+@UsePipes(new ValidationPipe({ whitelist: true, transform: true }))
 @Controller()
 export class AppController {
-  @MessagePattern(EventType.job)
-  handleJob(@Payload() data: any): { status: string; data: any } {
-    console.log('Processing task>>>:', data);
-    return { status: 'done', data };
+  @MessagePattern(ProcessorEvents.job)
+  handleJob(@Payload() payload: MakeJobPayload): MakeJobResult {
+    console.log(`Processing event: '${ProcessorEvents.job}',`, 'payload:', payload);
+    return { success: true, data: { content: 'job result' } };
   }
 }

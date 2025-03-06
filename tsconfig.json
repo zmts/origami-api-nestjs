@@ -33,6 +33,12 @@
       "@processor/*": [
         "apps/processor/src/app/*"
       ],
+      "@libs/agents": [
+        "libs/agents/src"
+      ],
+      "@libs/agents/*": [
+        "libs/agents/src/*"
+      ],
       "@libs/common": [
         "libs/common/src"
       ],

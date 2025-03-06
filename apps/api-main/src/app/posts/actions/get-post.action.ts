@@ -1,9 +1,7 @@
-import { Inject, Injectable, UseGuards } from '@nestjs/common';
-import { ClientProxy } from '@nestjs/microservices';
-import { firstValueFrom } from 'rxjs';
+import { Injectable, UseGuards } from '@nestjs/common';
 
+import { ProcessorAgent } from '@libs/agents/processor';
 import { PostUuid } from '@libs/common/types/global';
-import { EventType, RabbitQueues } from '@libs/config/rabbitmq';
 import { BaseAction } from '@libs/core/api';
 import { PostsRepo } from '@libs/datalayer/posts';
 
@@ -13,14 +11,14 @@ import { PostResource } from '../inout/resources';
 export class GetPostAction extends BaseAction<[PostUuid], PostResource> {
   constructor(
     private postsRepo: PostsRepo,
-    @Inject(RabbitQueues.processor) private readonly processorRMQclient: ClientProxy,
+    private processorAgent: ProcessorAgent,
   ) {
     super();
   }
 
   @UseGuards()
   async run(postUuid: PostUuid): Promise<PostResource> {
-    await firstValueFrom(this.processorRMQclient.send(EventType.job, { postUuid }));
+    await this.processorAgent.makeJob({ id: postUuid });
     const post = await this.postsRepo.findOneByUuid({ uuid: postUuid }, { findOrThrow: true, relations: { user: true } });
     return new PostResource(post);
   }
