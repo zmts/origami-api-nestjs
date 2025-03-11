@@ -1,6 +1,6 @@
 import { Injectable, UseGuards } from '@nestjs/common';
 
-import { ProcessorAgent } from '@libs/agents/processor';
+import { ProcessorAgent } from '@libs/agents/processor/rabbitmq-agent';
 import { PostUuid } from '@libs/common/types/global';
 import { BaseAction } from '@libs/core/api';
 import { PostsRepo } from '@libs/datalayer/posts';
