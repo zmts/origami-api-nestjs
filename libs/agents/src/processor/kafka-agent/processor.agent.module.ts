@@ -6,7 +6,7 @@ import { IKafkaConfig, KafkaConfigModule, KafkaConfigService } from '@libs/confi
 import { KafkaGroups } from '@libs/config/kafka';
 
 import { TOKEN } from './agent.token';
-import { ProcessorKafkaAgent } from './processor.agent';
+import { ProcessorAgent } from './processor.agent';
 
 @Module({
   imports: [
@@ -19,7 +19,7 @@ import { ProcessorKafkaAgent } from './processor.agent';
       },
     ]),
   ],
-  providers: [ProcessorKafkaAgent],
-  exports: [ProcessorKafkaAgent],
+  providers: [ProcessorAgent],
+  exports: [ProcessorAgent],
 })
 export class ProcessorAgentModule {}
