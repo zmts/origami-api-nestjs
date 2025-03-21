@@ -2,7 +2,7 @@ import { Module } from '@nestjs/common';
 import { ConfigModule, ConfigService } from '@nestjs/config';
 
 import { GoogleAuthModule } from '@libs/common/auth-google';
-import { AllConfig, appConfig, authConfig, databaseConfig, RabbitMqConfigModule } from '@libs/config';
+import { AllConfig, appConfig, authConfig, databaseConfig, mailConfig, RabbitMqConfigModule } from '@libs/config';
 import { GlobalExceptionProvider } from '@libs/core/api';
 import { DatabaseModule } from '@libs/database';
 
@@ -16,7 +16,7 @@ import { UsersModule } from './users';
   imports: [
     ConfigModule.forRoot({
       isGlobal: true,
-      load: [appConfig, authConfig, databaseConfig],
+      load: [appConfig, authConfig, databaseConfig, mailConfig],
     }),
     RabbitMqConfigModule,
     GoogleAuthModule.forRootAsync({

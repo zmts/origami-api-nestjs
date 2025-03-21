@@ -11,6 +11,11 @@ export interface AppConfig {
   frontendUrl: string;
 }
 
+export interface MailConfig {
+  defaultFrom: string;
+  sendGridApiKey: string;
+}
+
 export type AuthConfig = {
   accessToken: {
     secret: string;
@@ -48,4 +53,5 @@ export type AllConfig = {
   app: AppConfig;
   auth: AuthConfig;
   database: DatabaseConfig;
+  mail: MailConfig;
 };
