@@ -25,6 +25,7 @@
     "migration:create": "typeorm migration:create ./libs/database/src/migrations/migration-name"
   },
   "dependencies": {
+    "@aws-sdk/client-s3": "3.782.0",
     "@nestjs-modules/mailer": "2.0.2",
     "@nestjs/common": "10.4.15",
     "@nestjs/config": "3.3.0",
