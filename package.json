@@ -34,6 +34,7 @@
     "@nestjs/passport": "10.0.3",
     "@nestjs/platform-express": "10.4.15",
     "@nestjs/typeorm": "10.0.2",
+    "@sendgrid/mail": "8.1.4",
     "amqp-connection-manager": "4.1.14",
     "amqplib": "0.10.5",
     "argon2": "0.41.1",

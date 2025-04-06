@@ -18,6 +18,13 @@ type WelcomeContextType = {
   content: string;
 };
 
+/**
+ * const mailData = getMailTemplate(TemplatesEnum.test, { username: 'Alex', content: 'Hello World' });
+ * now you cant use type safe values
+ * mailData.templateName;
+ * mailData.context.content;
+ * mailData.context.username;
+ */
 export function getMailTemplate<T extends TemplatesEnum>(
   templateName: T,
   templateContext: TemplateContextMap[T],
