@@ -12,12 +12,17 @@ export class S3ManagerService {
   private client: S3Client;
 
   constructor(@Inject(MODULE_OPTIONS_TOKEN) private readonly options: S3ManagerServiceOptions) {
+    if (options.isMinio && !options.endpoint) {
+      throw new Error('endpoint option is required');
+    }
+
     this.client = new S3Client({
-      region: this.options.region,
       credentials: {
         accessKeyId: this.options.access,
         secretAccessKey: this.options.secret,
       },
+      region: this.options?.region || 'us-east-1',
+      ...(options.isMinio && { endpoint: options.endpoint, forcePathStyle: true }),
     });
   }
 
