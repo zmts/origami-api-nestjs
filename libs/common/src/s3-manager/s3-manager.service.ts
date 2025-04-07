@@ -6,6 +6,8 @@ import { Inject, Injectable, Logger } from '@nestjs/common';
 import { MODULE_OPTIONS_TOKEN } from './token';
 import { S3ManagerServiceOptions } from './types';
 
+const DEFAULT_MIME = 'application/octet-stream';
+
 @Injectable()
 export class S3ManagerService {
   private logger: Logger = new Logger(this.constructor.name);
@@ -33,7 +35,7 @@ export class S3ManagerService {
   async uploadFile({
     buffer,
     fileName,
-    mimetype = 'application/octet-stream',
+    mimetype = DEFAULT_MIME,
   }: {
     buffer: Buffer;
     fileName: string;
@@ -99,7 +101,7 @@ export class S3ManagerService {
 
     return {
       stream: response.Body as Readable,
-      contentType: response.ContentType || 'application/octet-stream',
+      contentType: response.ContentType || DEFAULT_MIME,
     };
   }
 }
