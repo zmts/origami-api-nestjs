@@ -1,10 +1,10 @@
-import { Body, Controller, Get, Param, ParseUUIDPipe, Post, UseGuards } from '@nestjs/common';
+import { Body, Controller, Get, Param, ParseUUIDPipe, Post, Query, UseGuards } from '@nestjs/common';
 
 import { CurrentUser, CurrentUserJwt, JwtGuard } from '@libs/common/auth';
 
-import { GetPostAction, CreatePostAction } from './actions';
+import { GetPostAction, CreatePostAction, ListPostsAction } from './actions';
 import { PostResource } from './inout/resources';
-import { CreatePostDto } from './inout/validations';
+import { CreatePostDto, ListPostsFilterDto } from './inout/validations';
 
 @UseGuards(JwtGuard)
 @Controller('posts')
@@ -12,7 +12,13 @@ export class PostsController {
   constructor(
     private getPostAction: GetPostAction,
     private createPostAction: CreatePostAction,
+    private listPostsAction: ListPostsAction,
   ) {}
+
+  @Get()
+  listPosts(@Query() filter: ListPostsFilterDto): Promise<PostResource[]> {
+    return this.listPostsAction.run(filter);
+  }
 
   @Get(':uuid')
   getPostByUuid(@Param('uuid', ParseUUIDPipe) uuid: string): Promise<PostResource> {

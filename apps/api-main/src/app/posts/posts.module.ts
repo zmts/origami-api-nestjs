@@ -3,12 +3,12 @@ import { Module } from '@nestjs/common';
 import { ProcessorAgentModule } from '@libs/agents/processor/rabbitmq-agent';
 import { PostsRepoModule } from '@libs/datalayer/posts';
 
-import { CreatePostAction, GetPostAction } from './actions';
+import { CreatePostAction, GetPostAction, ListPostsAction } from './actions';
 import { PostsController } from './posts.controller';
 
 @Module({
   imports: [PostsRepoModule, ProcessorAgentModule],
   controllers: [PostsController],
-  providers: [GetPostAction, CreatePostAction],
+  providers: [GetPostAction, CreatePostAction, ListPostsAction],
 })
 export class PostsModule {}
