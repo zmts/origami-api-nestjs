@@ -1,6 +1,8 @@
+import { PostContract } from '@api-main/posts/inout/contracts';
 import { Body, Controller, Get, Param, ParseUUIDPipe, Post, Query, UseGuards } from '@nestjs/common';
 
 import { CurrentUser, CurrentUserJwt, JwtGuard } from '@libs/common/auth';
+import { ResourceList } from '@libs/core/api';
 
 import { GetPostAction, CreatePostAction, ListPostsAction } from './actions';
 import { PostResource } from './inout/resources';
@@ -16,7 +18,7 @@ export class PostsController {
   ) {}
 
   @Get()
-  listPosts(@Query() filter: ListPostsFilterDto): Promise<PostResource[]> {
+  listPosts(@Query() filter: ListPostsFilterDto): Promise<ResourceList<PostContract>> {
     return this.listPostsAction.run(filter);
   }
 

@@ -1,20 +1,20 @@
-import { Injectable, UseGuards } from '@nestjs/common';
+import { Injectable } from '@nestjs/common';
 
-import { BaseAction } from '@libs/core/api';
+import { BaseAction, ResourceList } from '@libs/core/api';
 import { PostsRepo } from '@libs/datalayer/posts';
 
+import { PostContract } from '../inout/contracts';
 import { PostResource } from '../inout/resources';
 import { ListPostsFilterDto } from '../inout/validations';
 
 @Injectable()
-export class ListPostsAction extends BaseAction<[ListPostsFilterDto], PostResource[]> {
+export class ListPostsAction extends BaseAction<[ListPostsFilterDto], ResourceList<PostContract>> {
   constructor(private postsRepo: PostsRepo) {
     super();
   }
 
-  @UseGuards()
-  async run(query: ListPostsFilterDto): Promise<PostResource[]> {
+  async run(query: ListPostsFilterDto): Promise<ResourceList<PostContract>> {
     const list = await this.postsRepo.find({ ...query });
-    return list.map(item => new PostResource(item));
+    return PostResource.list<PostContract>(list);
   }
 }

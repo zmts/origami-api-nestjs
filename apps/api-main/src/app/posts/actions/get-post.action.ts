@@ -1,4 +1,4 @@
-import { Injectable, UseGuards } from '@nestjs/common';
+import { Injectable } from '@nestjs/common';
 
 import { ProcessorAgent } from '@libs/agents/processor/rabbitmq-agent';
 import { PostUuid } from '@libs/common/types/global';
@@ -16,7 +16,6 @@ export class GetPostAction extends BaseAction<[PostUuid], PostResource> {
     super();
   }
 
-  @UseGuards()
   async run(postUuid: PostUuid): Promise<PostResource> {
     await this.processorAgent.makeJob({ id: postUuid });
     const post = await this.postsRepo.findOneByUuid({ uuid: postUuid }, { findOrThrow: true, relations: { user: true } });
