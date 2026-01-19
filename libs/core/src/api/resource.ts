@@ -21,6 +21,6 @@ export abstract class Resource<Contract = any> {
   }
 
   toResponse(): ApiResponse<Contract> {
-    return new ApiResponse(this.result(), this.options ? this.options() : {});
+    return new ApiResponse({ data: this.result() }, this.options ? this.options() : {});
   }
 }

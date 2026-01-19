@@ -13,8 +13,8 @@ export class ResourceList<Contract> {
     options?: { pagination?: IPaginationResponse; meta?: { [key: string]: any } },
   ) {
     this.list = list;
-    this.pagination = options.pagination;
-    this.meta = options.meta;
+    this.pagination = options?.pagination;
+    this.meta = options?.meta;
   }
 
   result(): Contract[] {
@@ -22,6 +22,6 @@ export class ResourceList<Contract> {
   }
 
   toResponse(): ApiResponse {
-    return new ApiResponse(this.result(), { pagination: this.pagination, meta: this.meta });
+    return new ApiResponse({ list: this.result() }, { pagination: this.pagination, meta: this.meta });
   }
 }

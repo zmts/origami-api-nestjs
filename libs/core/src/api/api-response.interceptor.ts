@@ -8,6 +8,7 @@ import { IPaginationResponse } from './types';
 
 interface IApiResponse {
   data: any;
+  list: any[];
   status: HttpStatus;
   pagination?: IPaginationResponse;
   meta?: any;
@@ -45,6 +46,7 @@ export class ApiResponseInterceptor {
       return {
         status: apiResponse.status || response.statusCode,
         data: apiResponse.data,
+        list: apiResponse.list,
         pagination: apiResponse.pagination,
         meta: apiResponse.meta,
       };
